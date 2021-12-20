@@ -14,4 +14,5 @@ function show_status() {
 
 }
 
+	echo "game.php run";
 ?>
