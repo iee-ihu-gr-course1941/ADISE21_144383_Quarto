@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS pieces_all;
 DROP TABLE IF EXISTS players;
 DROP TABLE IF EXISTS game_status;
 DROP PROCEDURE IF EXISTS clean_board;
-DROP IF EXISTS TRIGGER game_status_update;
+DROP TRIGGER IF EXISTS  game_status_update;
 DROP PROCEDURE IF EXISTS place_piece;
 
 CREATE TABLE `board` (
