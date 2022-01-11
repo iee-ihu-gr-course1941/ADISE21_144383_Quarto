@@ -1,17 +1,17 @@
-DROP TABLE board;
-DROP TABLE empty_board;
-DROP TABLE pieces;
-DROP TABLE pieces_all;
-DROP TABLE players;
-DROP TABLE game_status;
-DROP PROCEDURE clean_board;
-DROP TRIGGER game_status_update;
-DROP PROCEDURE place_piece;
+DROP TABLE IF EXISTS board;
+DROP TABLE IF EXISTS empty_board;
+DROP TABLE IF EXISTS pieces;
+DROP TABLE IF EXISTS pieces_all;
+DROP TABLE IF EXISTS players;
+DROP TABLE IF EXISTS game_status;
+DROP PROCEDURE IF EXISTS clean_board;
+DROP IF EXISTS TRIGGER game_status_update;
+DROP PROCEDURE IF EXISTS place_piece;
 
 CREATE TABLE `board` (
 `x` tinyint(1) NOT NULL,
 `y` tinyint(1) NOT NULL,
-`piece_id` INTEGER DEFAULT NULL,
+FOREIGN KEY (piece_id) REFERENCES pieces(id),
 PRIMARY KEY (`x`,`y`)
 );
 
@@ -36,7 +36,7 @@ INSERT INTO board (x,y) VALUES (4,4);
 CREATE TABLE `empty_board` (
 `x` tinyint(1) NOT NULL,
 `y` tinyint(1) NOT NULL,
-`piece_id` INTEGER DEFAULT NULL,
+FOREIGN KEY (piece_id) REFERENCES pieces(id),
 PRIMARY KEY (`x`,`y`)
 );
 
@@ -115,6 +115,8 @@ INSERT INTO pieces_all VALUES (16, false, false,false, false);
 CREATE TABLE `players` (
 `id` INTEGER NOT NULL,
 `username` varchar(20) DEFAULT NULL,
+`playerNumber` enum('1','2') DEFAULT NULL,
+`token` varchar(20) DEFAULT NULL,
 PRIMARY KEY (`id`)
 );
 
