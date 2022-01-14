@@ -1,11 +1,18 @@
 <?php
 
-function show_board() {
+function show_board($input) {
     global $mysqli;
 	
-	$sql = 'select * from board';
-	$st = $mysqli->prepare($sql);
+	$token= $input['token'];
 
+	if($token==null || $token=='') {		//check if user exists
+		header("HTTP/1.1 400 Bad Request");
+		print json_encode(['errormesg'=>"token is not set."]);
+		exit;
+	}
+
+	$sql = 'select * from board';	
+	$st = $mysqli->prepare($sql);
 	$st->execute();
 	$res = $st->get_result();
 
@@ -13,15 +20,17 @@ function show_board() {
 	print json_encode($res->fetch_all(MYSQLI_ASSOC), JSON_PRETTY_PRINT);
 }
 
-function reset_board() {
+function reset_board($input) {
 	global $mysqli;
 	
 	$sql = 'call clean_board()';
 	$mysqli->query($sql);
-	show_board();
+	show_board($input);
 }
 
-function piecePlacement($x, $y, $pieceId, $token) {
+function piecePlacement($x, $y, $pieceId, $input) {
+
+	$token= $input['token'];
 
 	if($token==null || $token=='') {		//check if user exists
 		header("HTTP/1.1 400 Bad Request");
@@ -77,7 +86,7 @@ function piecePlacement($x, $y, $pieceId, $token) {
 	$st->bind_param('a',$pid,$x,$y);
 	$st->execute();
 
-	show_board();
+	show_board($input);
 	checkEndGame();
 	
 }

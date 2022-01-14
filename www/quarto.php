@@ -15,7 +15,7 @@ if($input==null) {
 if(isset($_SERVER['HTTP_X_TOKEN'])) {
         $input['token']=$_SERVER['HTTP_X_TOKEN'];
 } else {
-        $input['token']='';
+        $input['token']='1';   // =1 for debugging
     }
 
 
@@ -24,7 +24,7 @@ switch ($r=array_shift($request)) {     //na prosthesw to $input ws parametro
     case 'board' : 
                     switch ($b=array_shift($request)) {
                                 case '':
-                                case null: handle_board($method);
+                                case null: handle_board($method, $input);   //na prosthesw to $input ws parametro
                                                 break;
                                 case 'piece': handle_piece($method, $request[0],$request[1],$input);
                                                 break;
@@ -36,18 +36,18 @@ switch ($r=array_shift($request)) {     //na prosthesw to $input ws parametro
     case 'player':  handle_player($method, $request[0],$input);
         break;
     case 'status':      
-                    handle_status($method); 
+                    handle_status($method);  //na prosthesw to $input ws parametro
          break;
     default:  header("HTTP/1.1 404 Not Found");
                         exit;
 }
 
-function handle_board($method) {    //na prosthesw to $input ws parametro
+function handle_board($method, $input) {    //na prosthesw to $input ws parametro
  
         if($method=='GET') {
-                show_board();
+                show_board($input);       //na prosthesw to $input ws parametro
         } else if ($method=='POST') {
-                reset_board();
+                reset_board($input);      //na prosthesw to $input ws parametro
         }
 }
 
@@ -60,7 +60,7 @@ function handle_player($method, $p,$input) {
 }
 
 
-function handle_status($method) {
+function handle_status($method) {       //na prosthesw to $input ws parametro
         if($method=='GET') {
             show_status();
         } else {

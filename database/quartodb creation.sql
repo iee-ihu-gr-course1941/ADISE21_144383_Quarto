@@ -11,8 +11,8 @@ DROP PROCEDURE IF EXISTS place_piece;
 CREATE TABLE `board` (
 `x` tinyint(1) NOT NULL,
 `y` tinyint(1) NOT NULL,
-PRIMARY KEY (`x`,`y`),
-FOREIGN KEY (piece_id) REFERENCES pieces(id) DEFAULT NULL
+`piece_id` INTEGER DEFAULT NULL,
+PRIMARY KEY (`x`,`y`)
 );
 
 INSERT INTO board (x,y) VALUES (1,1);
@@ -36,8 +36,8 @@ INSERT INTO board (x,y) VALUES (4,4);
 CREATE TABLE `empty_board` (
 `x` tinyint(1) NOT NULL,
 `y` tinyint(1) NOT NULL,
-PRIMARY KEY (`x`,`y`),
-FOREIGN KEY (`piece_id`) REFERENCES pieces(id) DEFAULT NULL
+`piece_id` INTEGER DEFAULT NULL,
+PRIMARY KEY (`x`,`y`)
 );
 
 INSERT INTO empty_board (x,y) VALUES (1,1);
@@ -96,22 +96,22 @@ CREATE TABLE `pieces_all`(
 PRIMARY KEY (`id`)
 );
 
-INSERT INTO pieces (id,White,Square,Tall,Hollow) VALUES (1, true, true, true, true);
-INSERT INTO pieces (id,White,Square,Tall,Hollow) VALUES (2, true, true, true, false);
-INSERT INTO pieces (id,White,Square,Tall,Hollow) VALUES (3, true, true, false, true); 
-INSERT INTO pieces (id,White,Square,Tall,Hollow) VALUES (4, true, true, false, false);
-INSERT INTO pieces (id,White,Square,Tall,Hollow) VALUES (5, true, false, true, true);
-INSERT INTO pieces (id,White,Square,Tall,Hollow) VALUES (6, true, false, true, false);
-INSERT INTO pieces (id,White,Square,Tall,Hollow) VALUES (7, true, false, false, true);
-INSERT INTO pieces (id,White,Square,Tall,Hollow) VALUES (8, true, false, false, false);
-INSERT INTO pieces (id,White,Square,Tall,Hollow) VALUES (9, false, true, true, true);
-INSERT INTO pieces (id,White,Square,Tall,Hollow) VALUES (10, false, true, true, false);
-INSERT INTO pieces (id,White,Square,Tall,Hollow) VALUES (11, false, true, false, true);
-INSERT INTO pieces (id,White,Square,Tall,Hollow) VALUES (12, false, true, false, false);
-INSERT INTO pieces (id,White,Square,Tall,Hollow) VALUES (13, false, false, true, true);
-INSERT INTO pieces (id,White,Square,Tall,Hollow) VALUES (14, false, false, true, false);
-INSERT INTO pieces (id,White,Square,Tall,Hollow) VALUES (15, false, false, false, true);
-INSERT INTO pieces (id,White,Square,Tall,Hollow) VALUES (16, false, false,false, false);
+INSERT INTO pieces_all (id,White,Square,Tall,Hollow) VALUES (1, true, true, true, true);
+INSERT INTO pieces_all (id,White,Square,Tall,Hollow) VALUES (2, true, true, true, false);
+INSERT INTO pieces_all (id,White,Square,Tall,Hollow) VALUES (3, true, true, false, true); 
+INSERT INTO pieces_all (id,White,Square,Tall,Hollow) VALUES (4, true, true, false, false);
+INSERT INTO pieces_all (id,White,Square,Tall,Hollow) VALUES (5, true, false, true, true);
+INSERT INTO pieces_all (id,White,Square,Tall,Hollow) VALUES (6, true, false, true, false);
+INSERT INTO pieces_all (id,White,Square,Tall,Hollow) VALUES (7, true, false, false, true);
+INSERT INTO pieces_all (id,White,Square,Tall,Hollow) VALUES (8, true, false, false, false);
+INSERT INTO pieces_all (id,White,Square,Tall,Hollow) VALUES (9, false, true, true, true);
+INSERT INTO pieces_all (id,White,Square,Tall,Hollow) VALUES (10, false, true, true, false);
+INSERT INTO pieces_all (id,White,Square,Tall,Hollow) VALUES (11, false, true, false, true);
+INSERT INTO pieces_all (id,White,Square,Tall,Hollow) VALUES (12, false, true, false, false);
+INSERT INTO pieces_all (id,White,Square,Tall,Hollow) VALUES (13, false, false, true, true);
+INSERT INTO pieces_all (id,White,Square,Tall,Hollow) VALUES (14, false, false, true, false);
+INSERT INTO pieces_all (id,White,Square,Tall,Hollow) VALUES (15, false, false, false, true);
+INSERT INTO pieces_all (id,White,Square,Tall,Hollow) VALUES (16, false, false,false, false);
 
 
 CREATE TABLE `players` (
