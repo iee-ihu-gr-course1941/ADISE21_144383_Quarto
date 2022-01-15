@@ -69,7 +69,10 @@ function handle_user($method, $b,$input) {
 		
 	} else if($method=='PUT') {
         set_user($b,$input);
-    }
+    }else {
+		header('HTTP/1.1 405 Method Not Allowed');
+	}
+	
 }
 
 
