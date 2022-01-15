@@ -15,7 +15,7 @@ if($input==null) {
 if(isset($_SERVER['HTTP_X_TOKEN'])) {
         $input['token']=$_SERVER['HTTP_X_TOKEN'];
 } else {
-        $input['token']='1';   // =1 for debugging
+        $input['token']='1';   // ='1' for debugging
     }
 
 
@@ -36,7 +36,7 @@ switch ($r=array_shift($request)) {     //na prosthesw to $input ws parametro
     case 'player':  handle_player($method, $request[0],$input);
         break;
     case 'status':      
-                    handle_status($method);  //na prosthesw to $input ws parametro
+                    handle_status($method, $input);  //na prosthesw to $input ws parametro
          break;
     default:  header("HTTP/1.1 404 Not Found");
                         exit;
@@ -56,13 +56,15 @@ function handle_piece($method, $x,$y,$input) {
 }
  
 function handle_player($method, $p,$input) {
+         
+         handle_user($method, $p,$input);
         ;
 }
 
 
-function handle_status($method) {       //na prosthesw to $input ws parametro
+function handle_status($method,$input) {       //na prosthesw to $input ws parametro
         if($method=='GET') {
-            show_status();
+            show_status($input);
         } else {
             header('HTTP/1.1 405 Method Not Allowed');
         }

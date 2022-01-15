@@ -1,6 +1,14 @@
 <?php
 
-function show_status() {
+function show_status($input) {
+
+	$token= $input['token'];
+
+	if($token==null || $token=='') {		//check if user exists
+		header("HTTP/1.1 400 Bad Request");
+		print json_encode(['errormesg'=>"token is not set."]);
+		exit;
+	}
 	
 	global $mysqli;
 	
@@ -8,7 +16,6 @@ function show_status() {
 	
 	$sql = 'select * from game_status';
 	$st = $mysqli->prepare($sql);
-
 	$st->execute();
 	$res = $st->get_result();
 
