@@ -134,7 +134,7 @@ CREATE TABLE `game_status` (
 DELIMITER $$
 CREATE PROCEDURE clean_board()
 BEGIN
-REPLACE INTO board SELECT * FROM board_empty;
+REPLACE INTO board SELECT * FROM empty_board;
 REPLACE INTO pieces SELECT * FROM pieces_all;
 UPDATE game_status SET `status`='not active', `p_turn`=`1`, `result`=null;
 END$$
