@@ -53,13 +53,21 @@ function handle_board($method, $input) {
 
 function handle_piece($method, $x,$y, $piece_id,$input) {
 
-        if($method=='GET' && $piece_id == null) {
-                show_piece($x, $y, $input);     
-        } else if ($method=='PUT') {
-                piecePlacement($x, $y, $piece_id, $input);      
-        }else {
-                header('HTTP/1.1 405 Method Not Allowed');
+        if(($y != null || $y != '') && ($piece_id != null || $piece_id != '')){
+                if($method=='GET' && $piece_id == null) {
+                        show_piece($x, $y, $input);     
+                } else if ($method=='PUT') {
+                        piecePlacement($x, $y, $piece_id, $input);      
+                }else {
+                        header('HTTP/1.1 405 Method Not Allowed');
+                }
+        }elseif($method=='PUT'){
+                piecePlacement(null, null, $x, $input);   // first move requires only piece_id
+        }else{
+                header('HTTP/1.1 400 Bad Request');
+                exit;
         }
+
         
 }
  

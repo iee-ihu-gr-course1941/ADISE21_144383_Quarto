@@ -25,6 +25,14 @@ function show_board($input) {
 function reset_board($input) {
 	global $mysqli;
 	
+	$token= $input['token'];
+
+	if($token==null || $token=='') {		//check if user exists
+		header("HTTP/1.1 400 Bad Request");
+		print json_encode(['errormesg'=>"token is not set."]);
+		exit;
+	}
+
 	$sql = 'call clean_board()';
 	$mysqli->query($sql);
 	show_board($input);
@@ -41,19 +49,6 @@ function piecePlacement($x, $y, $pieceId, $input) {
 	}
 	
 	global $mysqli;
-
-	$sql = `select piece_id from board where x = ? AND y = ?`;
-	$st = $mysqli->prepare($sql);
-	$st->bind_param('a',$x,$y);
-	$st->execute();
-	$res = $st->get_result();
-
-	if($res[0] != null) {										//check if place on board is empty
-		print('This place on the board is not empty');
-		
-		header("HTTP/1.1 400 Bad Request");
-		exit;
-	}
 
 	$sql = `select p_turn from game_status `;
 	$st = $mysqli->prepare($sql);
@@ -74,6 +69,27 @@ function piecePlacement($x, $y, $pieceId, $input) {
 	
 	if($numOfPiecesAvailiable == 16)	//if all the pieces are availiable then this is the first move
 		exit;							//In the first round player 1 just picks a piece for player 2 to place
+
+
+	if($x == null || $y == null || $x == '' || $y == ''){
+		header("HTTP/1.1 400 Bad Request");
+		print json_encode(['errormesg'=>"this is not the first move. please set x & y!"]);
+		exit;
+	}
+
+	$sql = `select piece_id from board where x = ? AND y = ?`;
+	$st = $mysqli->prepare($sql);
+	$st->bind_param('a',$x,$y);
+	$st->execute();
+	$res = $st->get_result();
+
+	if($res[0] != null) {										//check if place on board is empty
+		print('This place on the board is not empty');
+		
+		header("HTTP/1.1 400 Bad Request");
+		exit;
+	}
+
 
 	$sql = `select id from pieces where Player = if(? = 1, 1, 2) `;
 	$st = $mysqli->prepare($sql);
