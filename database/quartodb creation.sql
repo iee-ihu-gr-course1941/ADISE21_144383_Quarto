@@ -115,11 +115,10 @@ INSERT INTO pieces_all (id,White,Square,Tall,Hollow) VALUES (16, false, false,fa
 
 
 CREATE TABLE `players` (
-`id` INTEGER NOT NULL,
 `username` varchar(20) DEFAULT NULL,
 `playerNumber` enum('1','2') DEFAULT NULL,
 `token` varchar(100) DEFAULT NULL,
-PRIMARY KEY (`id`)
+PRIMARY KEY (`username`)
 );
 
 
