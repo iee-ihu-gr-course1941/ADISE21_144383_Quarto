@@ -15,7 +15,7 @@ if($input==null) {
 if(isset($_SERVER['HTTP_X_TOKEN'])) {
         $input['token']=$_SERVER['HTTP_X_TOKEN'];
 } else {
-        $input['token']='';   // ='1' for debugging
+        $input['token']='1';   // ='1' for debugging
     }
 
 
